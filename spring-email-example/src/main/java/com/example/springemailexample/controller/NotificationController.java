@@ -28,8 +28,11 @@ public class NotificationController {
 //	simpleMailMessage.setTo(emailDto.getTo());
 //
 //	simpleMailMessage.setTo(emailDto.getSubject());
-//	
+//
 //	simpleMailMessage.setTo(emailDto.getText());
+
+		// changes
+
 	javaMailSender.send(simpleMailMessage);
 	
 	return "Email sent successfully";
