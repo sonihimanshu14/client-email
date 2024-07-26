@@ -23,6 +23,7 @@ public class NotificationController {
 	simpleMailMessage.setTo(emailDto.getTo());
 	simpleMailMessage.setSubject(emailDto.getSubject());
 	simpleMailMessage.setText(emailDto.getText());
+	// new commit test
 	
 	
 //	simpleMailMessage.setTo(emailDto.getTo());
@@ -31,7 +32,7 @@ public class NotificationController {
 //
 //	simpleMailMessage.setTo(emailDto.getText());
 
-		// changes
+		// changes 21212git diff
 
 	javaMailSender.send(simpleMailMessage);
 	
