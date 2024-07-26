@@ -23,7 +23,8 @@ public class NotificationController {
 	simpleMailMessage.setTo(emailDto.getTo());
 	simpleMailMessage.setSubject(emailDto.getSubject());
 	simpleMailMessage.setText(emailDto.getText());
-	// new commit test
+	// new commit testquii:q:::q!
+
 	
 	
 //	simpleMailMessage.setTo(emailDto.getTo());
