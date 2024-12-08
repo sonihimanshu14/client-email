@@ -12,16 +12,16 @@ import java.io.IOException;
 @RequestMapping("/payment")
 public class PaymentService {
 
-        @PostMapping("/generateQRCode")
-        public String generateQRCode(@RequestParam String paymentId) throws WriterException, IOException {
-            QRCodeWriter qrCodeWriter = new QRCodeWriter();
-            BufferedImage qrImage = qrCodeWriter.encode(paymentId, BarcodeFormat.QR_CODE, 200, 200);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(qrImage, "PNG", baos);
-            byte[] qrCodeBytes = baos.toByteArray();
-            // Return QR code as Base64 encoded string
-            return new String(qrCodeBytes);
-        }
-    }
+//        @PostMapping("/generateQRCode")
+//        public String generateQRCode(@RequestParam String paymentId) throws WriterException, IOException {
+//            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+//            BufferedImage qrImage = qrCodeWriter.encode(paymentId, BarcodeFormat.QR_CODE, 200, 200);
+//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//            ImageIO.write(qrImage, "PNG", baos);
+//            byte[] qrCodeBytes = baos.toByteArray();
+//            // Return QR code as Base64 encoded string
+//            return new String(qrCodeBytes);
+//        }
+//    }
 
 }
