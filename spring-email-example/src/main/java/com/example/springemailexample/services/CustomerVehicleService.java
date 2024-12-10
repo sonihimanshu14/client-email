@@ -1,20 +1,31 @@
 package com.example.springemailexample.services;
 
 
-
-
 import com.example.springemailexample.entity.CustomerVehicleEntity;
 import com.example.springemailexample.repository.CustomerVehicleRepository;
+import org.apache.kafka.clients.admin.AdminClient;
+import org.apache.kafka.clients.admin.NewTopic;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaAdmin;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CustomerVehicleService {
 
+    @Autowired
+    KafkaAdmin kafkaAdmin;
 
-    private final CustomerVehicleRepository repository;
+    @Autowired
+    KafkaTemplate<String, String> kafkaTemplate;
+
+
+    @Autowired
+    CustomerVehicleRepository repository;
 
     public CustomerVehicleService(CustomerVehicleRepository repository) {
         this.repository = repository;
@@ -44,5 +55,23 @@ public class CustomerVehicleService {
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
+
+
+
+
+    public void createKafkaTopic(String topicName) {
+        try (AdminClient adminClient = AdminClient.create(kafkaAdmin.getConfigurationProperties())) {
+            NewTopic newTopic = new NewTopic(topicName, 1, (short) 1);
+            adminClient.createTopics(Collections.singleton(newTopic));
+            System.out.println("Kafka topic created: " + topicName);
+        } catch (Exception e) {
+            System.err.println("Failed to create Kafka topic: " + e.getMessage());
+        }
+    }
+
+    public void sendMsgToTopic(String message){
+        kafkaTemplate.send("codingninjas_topic", message);
+    }
+
 }
 

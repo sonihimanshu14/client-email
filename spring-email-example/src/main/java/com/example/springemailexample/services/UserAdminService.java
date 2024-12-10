@@ -2,6 +2,7 @@ package com.example.springemailexample.services;
 import com.example.springemailexample.entity.UserAdmin;
 import com.example.springemailexample.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +45,21 @@ public class UserAdminService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+
+
+
+    @KafkaListener(topics = "customer_arrived", groupId = "admin-group")
+    public void listenToCustomerArrived(String message) {
+        System.out.println("Admin received message from Toll Booth: " + message);
+        // Perform any additional admin-related processing here
+    }
+
+
+    @KafkaListener(topics = "codingninjas_topic", groupId = "codingninjas_group")
+    public void listenToTopic(String recmessage){System.out.println("The Message is: " + recmessage);}
+
+
+
 }
 
