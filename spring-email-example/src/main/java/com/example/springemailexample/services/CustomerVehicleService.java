@@ -55,22 +55,23 @@ public class CustomerVehicleService {
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
+//    public void createKafkaTopic(String topicName) {
+//        try (AdminClient adminClient = AdminClient.create(kafkaAdmin.getConfigurationProperties())) {
+//            NewTopic newTopic = new NewTopic(topicName, 1, (short) 1);
+//            adminClient.createTopics(Collections.singleton(newTopic));
+//            System.out.println("Kafka topic created: " + topicName);
+//        } catch (Exception e) {
+//            System.err.println("Failed to create Kafka topic: " + e.getMessage());
+//        }
+//    }
 
+    public void sendMsgToUserAdmin(long id){
 
+        Optional<CustomerVehicleEntity> customerVehicle=  repository.findById(id);
+       String custName= customerVehicle.get().getCustomerName();
+       String custVehicle= customerVehicle.get().getVehicleName();
 
-
-    public void createKafkaTopic(String topicName) {
-        try (AdminClient adminClient = AdminClient.create(kafkaAdmin.getConfigurationProperties())) {
-            NewTopic newTopic = new NewTopic(topicName, 1, (short) 1);
-            adminClient.createTopics(Collections.singleton(newTopic));
-            System.out.println("Kafka topic created: " + topicName);
-        } catch (Exception e) {
-            System.err.println("Failed to create Kafka topic: " + e.getMessage());
-        }
-    }
-
-    public void sendMsgToTopic(String message){
-        kafkaTemplate.send("codingninjas_topic", message);
+        kafkaTemplate.send("customer_arrived_topic","The "+ custName +" has arrived at the Toll Booth with vehicle : "+custVehicle);
     }
 
 }

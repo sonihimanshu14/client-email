@@ -49,19 +49,9 @@ public class CustomerVehicleController {
         return ResponseEntity.noContent().build();
     }
 
-
-    @PostMapping("/create-topic/{topicName}")
-    public String createTopic(@PathVariable String topicName) {
-        service.createKafkaTopic(topicName);
-        return "Kafka topic created: " + topicName;
-    }
-
-
-//    @Autowired
-//    Producers producers;
     @GetMapping("/producersMsg")
-    public void getmessageFromClient(@RequestParam("message") String message){
-        service.sendMsgToTopic(message);
+    public void getmessageFromClient(@RequestParam("id")long id){
+        service.sendMsgToUserAdmin(id);
     }
 
 
