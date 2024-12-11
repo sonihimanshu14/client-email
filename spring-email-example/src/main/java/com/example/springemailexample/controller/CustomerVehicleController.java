@@ -2,9 +2,11 @@ package com.example.springemailexample.controller;
 
 import com.example.springemailexample.entity.CustomerVehicleEntity;
 import com.example.springemailexample.services.CustomerVehicleService;
+import com.google.zxing.WriterException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -50,7 +52,7 @@ public class CustomerVehicleController {
     }
 
     @GetMapping("/producersMsg")
-    public void getmessageFromClient(@RequestParam("id")long id){
+    public void getmessageFromClient(@RequestParam("id")long id) throws IOException, WriterException {
         service.sendMsgToUserAdmin(id);
     }
 
