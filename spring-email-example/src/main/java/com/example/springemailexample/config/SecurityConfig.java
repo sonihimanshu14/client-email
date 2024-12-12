@@ -19,7 +19,7 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll() // Public endpoints
-                        .requestMatchers("/api/users/**").authenticated() // Protected endpoints
+                        .requestMatchers("/api/users/**").permitAll() // Protected endpoints
                         .requestMatchers("/api/customer-vehicles/**").authenticated() // Protected endpoints
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless JWT

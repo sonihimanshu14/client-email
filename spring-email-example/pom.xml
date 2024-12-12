@@ -7,6 +7,7 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
+
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>spring-email-example</artifactId>
@@ -91,17 +92,18 @@
 		</dependency>
 
 		<!-- H2 Database (for in-memory testing) -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+
 
 		<!-- MySQL Driver (if you use MySQL) -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.33</version> <!-- Replace with the latest version if needed -->
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 
