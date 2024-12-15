@@ -56,6 +56,9 @@ public class UserAdminService {
     @KafkaListener(topics = "customer_arrived_topic", groupId = "vehicles_group")
     public void listenToTopic(String recmessage){System.out.println("The Vehicle Arrived :  " + recmessage);}
 
+    @KafkaListener(topics = "payment_received_topic", groupId = "payment_group")
+    public void listenToPaymentTopic(String recmessage){System.out.println("The Payment Received :  " + recmessage);}
+
 
 
 }

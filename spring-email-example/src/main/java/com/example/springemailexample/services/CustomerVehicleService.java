@@ -8,12 +8,14 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import net.sourceforge.tess4j.TesseractException;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -35,6 +37,9 @@ public class CustomerVehicleService {
 
     @Autowired
     CustomerVehicleRepository repository;
+
+    @Autowired
+    OcrService ocrService;
 
     public CustomerVehicleService(CustomerVehicleRepository repository) {
         this.repository = repository;
@@ -115,5 +120,17 @@ public class CustomerVehicleService {
 
         System.out.println("QR Code saved at: " + filePath.toString());
     }
+
+    public void sendPaymentMsgToUserAdmin(long id, MultipartFile file,String payment) throws TesseractException, IOException {
+
+        Optional<CustomerVehicleEntity> customerVehicle=  repository.findById(id);
+        String custName= customerVehicle.get().getCustomerName();
+        String custVehicle= customerVehicle.get().getVehicleName();
+
+        String extractedText = ocrService.extractTextFromImage(file);
+        kafkaTemplate.send("payment_received_topic","The "+ custName +" has Completed the Toll Booth Payment of Rs: "+payment+" with vehicle  name : "+custVehicle+" Registration No: "+extractedText);
+    }
+
+
 }
 
